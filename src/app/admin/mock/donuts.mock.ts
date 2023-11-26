@@ -1,4 +1,6 @@
-export const DonutsMock = [
+import { Donut } from "../models/donut.model";
+
+export const DonutsMock: Donut[] = [
   {
     id: 'y8z0As',
     name: 'Just Chocolate',

@@ -1,8 +1,8 @@
 export interface Donut {
-  id: string;
+  id?: string;
   name: string;
   icon: string;
   price: number;
-  promo?: string;
+  promo?: 'new' | 'limited';
   description: string;
 }

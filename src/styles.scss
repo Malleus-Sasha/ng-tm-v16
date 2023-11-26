@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
+  // --main-c1: 
   --text-c1: hsl(180 99% 32%);
   --text-c2: hsl(180 15% 93%);
 
@@ -91,6 +92,8 @@ input {
   }
   &--green {
     background: #01a3a4;
+    background: var(--text-c1);
+
     color: #fff;
   }
   &:hover {
@@ -99,6 +102,7 @@ input {
   }
   &:disabled {
     cursor: no-drop;
+    background: var(--bg-c1);
   }
 }
 

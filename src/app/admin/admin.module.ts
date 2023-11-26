@@ -7,7 +7,6 @@ import { DonutFormComponent } from './components/donut-form/donut-form.component
 import { FormsModule } from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [
     DonutListComponent,
@@ -24,4 +23,4 @@ import { FormsModule } from '@angular/forms';
     DonutSingleComponent,
   ]
 })
-export class AdminModule { }
+export class AdminModule {}

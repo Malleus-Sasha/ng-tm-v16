@@ -16,8 +16,7 @@ import { Donut } from '../../models/donut.model';
           minlength="5"
           [ngModel]="donut.name"
           [ngModelOptions]="{ updateOn: 'blur' }"
-          #name="ngModel"
-        />
+          #name="ngModel"/>
         <ng-container *ngIf="name.invalid && name.touched">
           <div class="donut-form-error" *ngIf="name.errors?.['minlength']">
             Minimum length of a name is 5!
@@ -35,8 +34,7 @@ import { Donut } from '../../models/donut.model';
           class="input input--select"
           required
           [ngModel]="donut.icon"
-          #icon="ngModel"
-        >
+          #icon="ngModel">
           <option *ngFor="let icon of icons" [ngValue]="icon">
             {{ icon }}
           </option>
@@ -56,8 +54,7 @@ import { Donut } from '../../models/donut.model';
           class="input"
           required
           [ngModel]="donut.price"
-          #price="ngModel"
-        />
+          #price="ngModel"/>
         <ng-container *ngIf="price.invalid && price.touched">
           <div class="donut-form-error" *ngIf="price.errors?.['required']">
             Price is required.
@@ -72,8 +69,7 @@ import { Donut } from '../../models/donut.model';
             type="radio"
             name="promo"
             [value]="undefined"
-            [ngModel]="donut.promo"
-          />
+            [ngModel]="donut.promo"/>
           <span>None</span>
         </label>
         <label>
@@ -81,8 +77,7 @@ import { Donut } from '../../models/donut.model';
             type="radio"
             name="promo"
             value="new"
-            [ngModel]="donut.promo"
-          />
+            [ngModel]="donut.promo"/>
           <span>New</span>
         </label>
         <label>
@@ -90,8 +85,7 @@ import { Donut } from '../../models/donut.model';
             type="radio"
             name="promo"
             value="limited"
-            [ngModel]="donut.promo"
-          />
+            [ngModel]="donut.promo"/>
           <span>Limited</span>
         </label>
       </div>
@@ -103,8 +97,8 @@ import { Donut } from '../../models/donut.model';
           class="input input--textarea"
           required
           [ngModel]="donut.description"
-          #description="ngModel"
-        ></textarea>
+          #description="ngModel">
+        </textarea>
         <ng-container *ngIf="description.invalid && description.touched">
           <div class="donut-form-error" *ngIf="description.errors?.['required']">
             Description is required.
@@ -112,7 +106,19 @@ import { Donut } from '../../models/donut.model';
         </ng-container>
       </label>
 
-      <button type="submit" class="btn btn--green">Create</button>
+      <button type="submit" class="btn btn--green" (click)="handleSubmit(form)">
+        Create
+      </button>
+      <button
+        type="button"
+        class="btn btn--green"
+        [disabled]="form.untouched"
+        (click)="handleUpdate(form)">
+        Update
+      </button>
+      <button type="button" class="btn btn--green" (click)="handleDelete()">
+        Delete
+      </button>
       <button type="button" class="btn btn--grey" (click)="form.resetForm()">
         Reset Form
       </button>
@@ -121,7 +127,6 @@ import { Donut } from '../../models/donut.model';
         Working...
       </div>
 
-      <!-- <pre>{{ form.form | json }}</pre> -->
       <!-- <pre>{{ form.value | json }}</pre> -->
     </form>
   `,
@@ -162,6 +167,8 @@ import { Donut } from '../../models/donut.model';
 export class DonutFormComponent {
   @Input() donut!: Donut;
   @Output() create = new EventEmitter<Donut>();
+  @Output() delete = new EventEmitter<Donut>();
+  @Output() update = new EventEmitter<Donut>();
 
   icons: string[] = [
     'caramel-swirl',
@@ -174,10 +181,27 @@ export class DonutFormComponent {
   ];
 
   handleSubmit(form: NgForm) {
+    console.log('SUBM')
     if (form.valid) {
       this.create.emit(form.value);
     } else {
       form.form.markAllAsTouched();
     }
+  }
+
+  handleDelete() {
+    if(confirm(`Really delete ${this.donut.name}`)) {
+      this.delete.emit({...this.donut});
+    }
+  }
+  handleUpdate(form: NgForm) {
+    if (form.valid) {
+      this.update.emit({ id: this.donut.id, ...form.value });
+    } else {
+      form.form.markAllAsTouched();
+    }
+  }
+  handleCreate(_t5: NgForm) {
+    throw new Error('Method not implemented.');
   }
 }

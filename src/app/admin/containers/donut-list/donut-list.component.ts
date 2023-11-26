@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Donut } from '../../models/donut.model';
 import { DonutsMock } from '../../mock/donuts.mock';
+import { DonutService } from '../../services/donut.service';
 
 @Component({
   selector: 'app-donut-list',
@@ -22,11 +23,13 @@ import { DonutsMock } from '../../mock/donuts.mock';
 export class DonutListComponent implements OnInit {
   donuts!: Donut[];
 
+  constructor(private donutService: DonutService) {}
+
   ngOnInit(): void {
-    this.donuts = DonutsMock;
+    this.donuts = this.donutService.read();
   }
 
   trackById(index: number, value: Donut): string {
-    return value.id;
+    return value?.id || 'vx';
   };
 }

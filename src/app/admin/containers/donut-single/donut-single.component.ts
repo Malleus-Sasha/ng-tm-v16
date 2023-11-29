@@ -8,6 +8,8 @@ import { DonutService } from '../../services/donut.service';
     <div>
       <app-donut-form
         [donut]="donut"
+        (update)="onUpdate($event)"
+        (delete)="onDelete($event)"
         (create)="onCreate($event)">
       </app-donut-form>
     </div>
@@ -26,19 +28,27 @@ export class DonutSingleComponent {
   constructor(private donutService: DonutService) {}
 
   ngOnInit(): void {
-    this.donut = this.donutService.readOne('8amkZ9');
+    // 'MMrL3pS' : '8amkZ9'
+    this.donutService.readOne('111').subscribe((donut: Donut) => {
+      this.donut = donut;
+    });
   }
 
   onCreate(donut: Donut) {
-    this.donutService.create(donut);
+    this.donutService.create(donut)
+      .subscribe(() => console.log('Created successfully!'));
   }
 
   onUpdate(donut: Donut) {
-    this.donutService.update(donut);
+    this.donutService.update(donut)
+      .subscribe({
+        next: () => console.log('Updated successfully!'),
+        error: (err) => console.log('onUpdate error:', err),
+      });
   }
 
   onDelete(donut: Donut) {
-    this.donutService.delete(donut);
+    this.donutService.delete(donut)
+      .subscribe(() => console.log('Deleted successfully!'));
   }
-
 }

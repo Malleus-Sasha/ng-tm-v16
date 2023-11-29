@@ -1,45 +1,98 @@
 import { Injectable } from '@angular/core';
 import { Donut } from '../models/donut.model';
-import { DonutsMock } from '../mock/donuts.mock';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, delay, map, of, retry, retryWhen, take, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DonutService {
 
-  private donuts: Donut[] = DonutsMock;
+  private donuts: Donut[] = [];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   read() {
-    return this.donuts;
+    if (this.donuts.length) {
+      return of(this.donuts);
+    }
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    headers = headers.append('Api-Token', '1234abcd');
+
+    const options = {
+       headers
+    };
+
+    return this.http.get<Donut[]>('/api/donuts', options).pipe(
+      tap((donuts) => this.donuts = donuts),
+      // retry(2),
+      // retry({delay: 5000, count: 2}),
+      retryWhen((errors) => errors.pipe(delay(2000), take(2))),
+      catchError(this.handleError),
+    );
   }
 
   readOne(id: string) {
-    const donut = this.read().find((donut: Donut) => donut.id === id);
-
-    if (donut) {
-      return donut;
-    }
-
-    return { name: '', icon: '', price: 0, description: '' };
+    return this.read().pipe(
+      map((donuts) => {
+        const donut = donuts.find((donut: Donut) => donut.id === id);
+        if (donut) {
+          return donut;
+        }
+        return { name: '', icon: '', price: 0, description: '' };
+      })
+    );
   }
 
   create(payload: Donut) {
-    this.donuts = [...this.donuts, payload];
-    console.log('Create: ', this.donuts);
+    console.log('Create:', payload);
+    return this.http.post<Donut>('/api/donuts', payload).pipe(
+      tap((donut) => {
+        console.log(':Create:res:', donut);
+        this.donuts = [...this.donuts, donut];
+      }),
+      catchError(this.handleError),
+    );
   }
 
   update(payload: Donut) {
-    this.donuts = this.donuts.map((donut: Donut) => {
-      if(donut.id = payload.id) return payload;
-      return donut;
-    });
+    return this.http.put<Donut>(`/api/donuts/${payload.id}`, payload).pipe(
+      tap((donut) => {
+        this.donuts = this.donuts.map((item: Donut) => {
+          if (item.id === donut.id) {
+            return donut;
+          }
+          return item;
+        });
+      }),
+      catchError(this.handleError),
+    );
   }
 
   delete(payload: Donut) {
-    this.donuts = this.donuts.filter((donut) => {
-      return donut.id !== payload.id;
-    });
+    return this.http.delete<Donut>(`/api/donuts/${payload.id}`).pipe(
+      tap(() => {
+        this.donuts = this.donuts.filter((donut) => {
+          return donut.id !== payload.id;
+        });
+      }),
+      catchError((err) => this.handleError(err))
+    )
+  }
+
+  handleError(err: HttpErrorResponse) {
+    console.log('[handleError]', err);
+    if (err.error instanceof ErrorEvent) {
+      // client-side
+      console.warn('Client', err.message);
+    } else {
+      // server-side
+      console.warn('Server', err.status);
+    }
+    return throwError(() => new Error(err.message));
   }
 }

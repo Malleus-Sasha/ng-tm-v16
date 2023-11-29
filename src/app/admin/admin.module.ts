@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DonutListComponent } from './containers/donut-list/donut-list.component';
-import { DonutCardComponent } from './components/donut-card/donut-card.component';
-import { DonutSingleComponent } from './containers/donut-single/donut-single.component';
-import { DonutFormComponent } from './components/donut-form/donut-form.component';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
+import { DonutListComponent } from './containers/donut-list/donut-list.component';
+import { DonutSingleComponent } from './containers/donut-single/donut-single.component';
+
+import { DonutCardComponent } from './components/donut-card/donut-card.component';
+import { DonutFormComponent } from './components/donut-form/donut-form.component';
+import { DonutService } from './services/donut.service';
+import { RouterModule, Routes } from '@angular/router';
+
+// const routes: Routes = [
+//   { path: 'list', component: DonutListComponent },
+//   { path: 'single', component: DonutSingleComponent },
+// ]
 
 @NgModule({
   declarations: [
@@ -17,10 +26,15 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
+    // RouterModule.forChild(routes),
   ],
   exports: [
     DonutListComponent,
     DonutSingleComponent,
+  ],
+  providers: [
+    DonutService,
   ]
 })
 export class AdminModule {}

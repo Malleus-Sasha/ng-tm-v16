@@ -1,0 +1,87 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "donuts": [
+    {
+      "id": "y8z0As",
+      "name": "Just Chocolate",
+      "icon": "just-chocolate",
+      "price": 119,
+      "promo": "limited",
+      "description": "For the pure chocoholic."
+    },
+    {
+      "id": "3u98Kl",
+      "name": "Glazed Fudge",
+      "icon": "glazed-fudge",
+      "price": 129,
+      "promo": "new",
+      "description": "Sticky perfection."
+    },
+    {
+      "id": "ae098s",
+      "name": "Caramel Swirl",
+      "icon": "caramel-swirl",
+      "price": 129,
+      "description": "Chocolate drizzled with caramel."
+    },
+    {
+      "id": "8amkZ9",
+      "name": "Sour Supreme",
+      "icon": "sour-supreme",
+      "price": 139,
+      "description": "For the sour advocate."
+    },
+    {
+      "id": "l3M0nz",
+      "name": "Zesty Lemon",
+      "icon": "zesty-lemon",
+      "price": 129,
+      "description": "Delicious lucious lemon."
+    },
+    {
+      "id": "111",
+      "name": "Sour Supreme 111",
+      "icon": "sour-supreme",
+      "price": 139,
+      "description": "For the sour advocate."
+    },
+    {
+      "name": "Sour Supreme",
+      "icon": "sour-supreme",
+      "price": 139,
+      "description": "For the sour advocate."
+    },
+    {
+      "name": "Sour Supreme 1",
+      "icon": "sour-supreme",
+      "price": 141,
+      "promo": "new",
+      "description": "1 For the sour advocate.",
+      "id": "pd-hpCP"
+    },
+    {
+      "name": "Caram 1",
+      "icon": "caramel-swirl",
+      "price": 137,
+      "promo": "limited",
+      "description": "1For the sour advocate.",
+      "id": "Uj26jJ6"
+    }
+  ]
+}

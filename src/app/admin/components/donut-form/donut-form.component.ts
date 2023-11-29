@@ -5,7 +5,7 @@ import { Donut } from '../../models/donut.model';
 @Component({
   selector: 'app-donut-form',
   template: `
-    <form class="donut-form" (ngSubmit)="handleSubmit(form)" #form="ngForm">
+    <form *ngIf="donut" class="donut-form" (ngSubmit)="handleSubmit(form)" #form="ngForm">
       <label>
         <span>Name</span>
         <input
@@ -106,7 +106,7 @@ import { Donut } from '../../models/donut.model';
         </ng-container>
       </label>
 
-      <button type="submit" class="btn btn--green" (click)="handleSubmit(form)">
+      <button type="submit" class="btn btn--green">
         Create
       </button>
       <button

@@ -8,12 +8,11 @@ import { Component } from '@angular/core';
         <img src="/assets/img/logo.svg" alt="Ultimate Donuts" class="logo" />
       </header>
       <div>
-        <a routerLink="list">list</a>
+        <a routerLink="donuts">list</a>
         |
-        <a routerLink="single">single</a>
+        <a routerLink="donut">single</a>
       </div>
-      <!-- <app-donut-list></app-donut-list> -->
-      <!-- <app-donut-single></app-donut-single> -->
+
       <router-outlet></router-outlet>
     </div>
   `,

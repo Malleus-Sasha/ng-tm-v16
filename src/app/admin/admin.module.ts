@@ -11,10 +11,13 @@ import { DonutFormComponent } from './components/donut-form/donut-form.component
 import { DonutService } from './services/donut.service';
 import { RouterModule, Routes } from '@angular/router';
 
-// const routes: Routes = [
-//   { path: 'list', component: DonutListComponent },
-//   { path: 'single', component: DonutSingleComponent },
-// ]
+const routes: Routes = [
+  { path: '', children: [
+    { path: 'donuts', component: DonutListComponent },
+    { path: 'donut', component: DonutSingleComponent },
+    { path: '', pathMatch: 'full', redirectTo: 'donuts' },
+  ]}
+];
 
 @NgModule({
   declarations: [
@@ -26,15 +29,16 @@ import { RouterModule, Routes } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
-    // RouterModule.forChild(routes),
+    // HttpClientModule,
+    RouterModule.forChild(routes),
   ],
   exports: [
     DonutListComponent,
     DonutSingleComponent,
   ],
-  providers: [
-    DonutService,
-  ]
+  // providers: [
+  //  'DonutService' HttpClientModule->app.Module
+  //   DonutService,
+  // ]
 })
 export class AdminModule {}

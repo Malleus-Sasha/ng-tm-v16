@@ -14,7 +14,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', children: [
     { path: 'donuts', component: DonutListComponent },
-    { path: 'donut', component: DonutSingleComponent },
+    { path: 'donuts/new', component: DonutSingleComponent, data: { isEdit: false } },
+    { path: 'donuts/:id', component: DonutSingleComponent, data: { isEdit: true } },
     { path: '', pathMatch: 'full', redirectTo: 'donuts' },
   ]}
 ];

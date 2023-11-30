@@ -4,10 +4,12 @@ import { Donut } from '../../models/donut.model';
 @Component({
   selector: 'app-donut-card',
   template: `
-    <div class="donut-card"
-    [ngClass]="{
-      'donut-card-promo': donut.promo,
-    }">
+    <a
+      class="donut-card"
+      [routerLink]="donut.id"
+      [ngClass]="{
+        'donut-card-promo': donut.promo
+      }">
       <img
         src="/assets/img/{{ donut.icon }}.svg"
         [alt]="donut.name"
@@ -27,7 +29,7 @@ import { Donut } from '../../models/donut.model';
           {{ donut.price | currency: 'GBP': 'symbol' }}
         </p>
       </div>
-    </div>
+    </a>
   `,
   styles: [
     `
@@ -41,6 +43,7 @@ import { Donut } from '../../models/donut.model';
         transition: transform 0.2s ease-in-out;
         &:hover {
           transform: translateY(-3px);
+          text-decoration: none;
         }
         &-promo {
           border: 2px solid #eee;

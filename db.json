@@ -55,13 +55,6 @@
       "description": "Delicious lucious lemon."
     },
     {
-      "id": "111",
-      "name": "Sour Supreme 111",
-      "icon": "sour-supreme",
-      "price": 139,
-      "description": "For the sour advocate."
-    },
-    {
       "name": "Sour Supreme",
       "icon": "sour-supreme",
       "price": 139,
@@ -82,6 +75,22 @@
       "promo": "limited",
       "description": "1For the sour advocate.",
       "id": "Uj26jJ6"
+    },
+    {
+      "id": "MognDaj",
+      "name": "Test 1-1",
+      "icon": "just-chocolate",
+      "price": 3,
+      "promo": "new",
+      "description": "Test text 2"
+    },
+    {
+      "name": "test 2",
+      "icon": "glazed-fudge",
+      "price": 2,
+      "promo": "new",
+      "description": "Test text 22",
+      "id": "VaMtgpM"
     }
   ]
 }
